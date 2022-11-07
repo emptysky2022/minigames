@@ -44,10 +44,18 @@ public class Move extends KeyAdapter implements Runnable{
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
-		PLAYER_DOWN = false;
-		PLAYER_UP = false;
-		PLAYER_LEFT = false;
-		PLAYER_RIGHT = false;
+		if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+			PLAYER_LEFT = false;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			PLAYER_RIGHT = false;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_UP) {
+			PLAYER_UP = false;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+			PLAYER_DOWN = false;
+		}
 	}
 	@Override
 	public void run() {
