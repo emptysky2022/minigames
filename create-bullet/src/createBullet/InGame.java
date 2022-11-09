@@ -34,7 +34,7 @@ public class InGame extends JFrame{
 			if (Math.random() < frequency) {
 				JLabel label = new JLabel();
 				label.setIcon(ball);
-				label.setBounds(100,100,40,40);
+				label.setBounds(250,200,40,40);
 				panel.add(label);
 				CreateBullet create = new CreateBullet(label);
 				Thread thread = new Thread(create);
