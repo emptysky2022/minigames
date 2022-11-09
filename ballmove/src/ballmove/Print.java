@@ -18,7 +18,7 @@ public class Print extends JFrame {
 		BufferedImage resizeImage = ImageIO.read(new File("images/ball.png"));
 		Image ballImage = resizeImage.getScaledInstance(80, 80, Image.SCALE_DEFAULT);
 		ImageIcon ball = new ImageIcon(ballImage);
-		setTitle("ê³µ ì›€ì§ì´ê¸°");
+		setTitle("°ø ¿òÁ÷ÀÌ±â");
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
