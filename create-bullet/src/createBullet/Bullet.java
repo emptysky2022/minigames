@@ -12,7 +12,6 @@ public class Bullet {
 	
 	
 	public Bullet() {
-		//총알 방향 랜덤 설정
 		BULLET_LEFT = direction.nextBoolean();
 		BULLET_UP = direction.nextBoolean();
 		if(!BULLET_LEFT && !BULLET_UP) {
@@ -23,7 +22,6 @@ public class Bullet {
 	}
 	
 	public int[] bulletDirection() {
-		//총알 방향 설정
 		int pos[] = new int[2];
 		if(BULLET_LEFT)
 			pos[0] = -speed;
@@ -37,7 +35,6 @@ public class Bullet {
 	}
 	
 	public void createPos() {
-		//방향에 따라 화면 끝에서 출력
 			
 	}
 	

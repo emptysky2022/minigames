@@ -1,5 +1,8 @@
 package createBullet;
 
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
@@ -8,16 +11,20 @@ import javax.swing.JPanel;
 
 
 public class CreateBullet extends Bullet implements Runnable{
-	private Bullet bullet;
-	private JLabel label;
+	private Bullet bulletMove;
+	private JLabel bullet;
 	private Rectangle pos;
+	Container parent;
+	Dimension size;
 	private int x;
 	private int y;
 	public CreateBullet(JLabel label) {
-		this.label = label;
-		pos = this.label.getBounds();
-		bullet = new Bullet();
-		int[] movement = bullet.bulletDirection();
+		bullet = label;
+		parent = label.getParent();
+		size = parent.getSize();
+		pos = bullet.getBounds();
+		bulletMove = new Bullet();
+		int[] movement = bulletMove.bulletDirection();
 		x = movement[0]; y = movement[1];
 		System.out.println(x + " " + y);
 	}
@@ -28,10 +35,18 @@ public class CreateBullet extends Bullet implements Runnable{
 			while(true) {
 				pos.x += x;
 				pos.y += y;
-				label.setBounds(pos);
+				bullet.setBounds(pos);
+				destoryBullet();
 				Thread.sleep(1);
 			}
 		}catch (Exception e) {
+		}
+	}
+	public void destoryBullet() {
+		if(pos.x < -60 || pos.y < -60 || pos.x > size.width || pos.y > size.height) {
+			System.out.println(Thread.currentThread().getName() + "bullet deleted");
+			Thread.currentThread().interrupt();
+			parent.remove(bullet);
 		}
 	}
 }

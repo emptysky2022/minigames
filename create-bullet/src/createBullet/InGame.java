@@ -16,10 +16,9 @@ import javax.swing.JPanel;
 public class InGame extends JFrame{
 	public InGame() throws IOException {
 		setTitle("create random bullet");
-		BufferedImage resizeImage = ImageIO.read(new File("images/ball.png"));
+		BufferedImage resizeImage = ImageIO.read(new File("images/bullet.png"));
 		Image ballImage = resizeImage.getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		ImageIcon ball = new ImageIcon(ballImage);
-		//°ø È®·ü
 		float frequency = 0.1f;
 		
 		JPanel panel = new JPanel();
@@ -29,6 +28,7 @@ public class InGame extends JFrame{
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600,400);
+		setResizable(true);
 		setVisible(true);
 		while(true) {
 			if (Math.random() < frequency) {
@@ -39,7 +39,7 @@ public class InGame extends JFrame{
 				CreateBullet create = new CreateBullet(label);
 				Thread thread = new Thread(create);
 				System.out.println(thread.getName());
-				thread.start();				
+				thread.start();
 			}
 			try {
 				Thread.sleep(50);
