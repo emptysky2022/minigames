@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class CreateBullet extends Bullet implements Runnable{
+public class CreateBullet implements Runnable{
 	private Bullet bulletMove;
 	private JLabel bullet;
 	private Rectangle pos;
@@ -22,8 +22,8 @@ public class CreateBullet extends Bullet implements Runnable{
 		bullet = label;
 		parent = label.getParent();
 		size = parent.getSize();
-		pos = bullet.getBounds();
-		bulletMove = new Bullet();
+		bulletMove = new Bullet(size);
+		pos = bulletMove.createPos();
 		int[] movement = bulletMove.bulletDirection();
 		x = movement[0]; y = movement[1];
 		System.out.println(x + " " + y);
