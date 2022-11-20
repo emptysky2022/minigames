@@ -12,17 +12,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Main extends JFrame{
-	public void CreateImage(JLabel player) throws IOException {
+	public void CreatePlayerImage(JLabel player) throws IOException {
 		BufferedImage playerImage = ImageIO.read(new File("images/ball.png"));
 		Image image = playerImage.getScaledInstance(40, 40, Image.SCALE_DEFAULT);
 		player.setIcon(new ImageIcon(image));
+	}
+	
+	public void CreateBulletImage(JLabel bullet) throws IOException {
+		BufferedImage bulletImage = ImageIO.read(new File("images/bullet.png"));
+		Image image = bulletImage.getScaledInstance(10, 10, Image.SCALE_DEFAULT);
+		bullet.setIcon(new ImageIcon(image));
 	}
 	
 	public Main() throws IOException {
 		setTitle("충돌 체크");
 		JPanel board = new JPanel(null);
 		JLabel player = new JLabel();
-		CreateImage(player);
+		CreatePlayerImage(player);
 		
 		player.setBounds(250, 500, 40, 40);
 		PlayerMove playerMove = new PlayerMove(player);
@@ -36,6 +42,21 @@ public class Main extends JFrame{
 		
 		Thread play = new Thread(playerMove);
 		play.start();
+		
+		while(true) {
+			JLabel bullet = new JLabel();
+			CreateBulletImage(bullet);
+			board.add(bullet);
+			
+			bullet.setBounds(250, 0, 10, 10);
+			BulletMove bulletMove = new BulletMove(bullet);
+			Thread bulletThread = new Thread(bulletMove);
+			bulletThread.start();
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+			}
+		}
 	}
 	
 	public static void main(String[] args) throws IOException {

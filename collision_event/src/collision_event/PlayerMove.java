@@ -37,7 +37,7 @@ public class PlayerMove extends KeyAdapter implements Runnable{
 	@Override
 	public void run() {
 		while(true) {
-			if(PlayerOut())
+			if(fieldOut())
 				continue;
 			if(PLAYER_LEFT) 
 				pos.x -= 1;
@@ -52,7 +52,7 @@ public class PlayerMove extends KeyAdapter implements Runnable{
 		
 	}
 
-	private boolean PlayerOut() {
+	private boolean fieldOut() {
 		if(pos.x < 0) {
 			pos.x += 1;
 			return true;
