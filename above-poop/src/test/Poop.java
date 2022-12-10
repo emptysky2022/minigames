@@ -5,13 +5,14 @@ import javax.swing.JLabel;
 
 public class Poop extends JLabel implements Moveable{
 	private GameBoard mGame;
+	private Player player;
 	
 	private int x;
 	private int y;
+	private int speed;
 	
 	private int state;
 	
-	private static final int SPEED = 5;
 	private static final int FLOOR = 775;
 	
 	private ImageIcon poop;
@@ -25,25 +26,32 @@ public class Poop extends JLabel implements Moveable{
 
 	private void initObject() {
 		poop = new ImageIcon("./images/poop.png");
+		player = mGame.getPlayer();
 	}
 	
 	private void initSetting() {
 		x = (int)(Math.random() * 950);
 		y = -5;
+		speed = (int)(Math.random() * 2 + 1);
 		
 		setIcon(poop);
 		setLocation(x, y);
 		setSize(30, 30);
+		mGame.add(this);
 	}
 
 	@Override
 	public void down() {
 		new Thread(() -> {
 			while(y < FLOOR) {
-				y += SPEED;
+				if(Math.abs(player.getX() - x) < 10 && player.getY() - y < 30) {
+					mGame.gameOver();
+					break;
+				}
+				y += speed;
 				setLocation(x, y);
 				try {
-					Thread.sleep(10);
+					Thread.sleep(1);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

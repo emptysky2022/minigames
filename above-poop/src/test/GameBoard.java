@@ -21,6 +21,8 @@ public class GameBoard extends JFrame{
 	private Player player;
 	private List<Poop> poops;
 	
+	private CreatePoop createPoops;
+	
 	public GameBoard() {
 		initObject();
 		initSetting();
@@ -35,7 +37,7 @@ public class GameBoard extends JFrame{
 		mainPanel.setSize(1000, 840);
 		player = new Player(mGame);
 		poops = new ArrayList<>();
-		poops.add(new Poop(mGame));
+		createPoops = new CreatePoop(mGame, poops);
 	}
 	
 	private void initSetting() {
@@ -49,7 +51,6 @@ public class GameBoard extends JFrame{
 		setVisible(true);
 		mainPanel.add(background);
 		mainPanel.add(player);
-		poops.forEach(e -> mainPanel.add(e));
 	}
 	
 	private void initListener() {
@@ -65,6 +66,10 @@ public class GameBoard extends JFrame{
 					if(!player.isRight()) {
 						player.right();
 					} break;
+				case KeyEvent.VK_R : 
+					if(player.isState()) {
+						restart();
+					}
 				}
 			}
 			@Override
@@ -79,6 +84,23 @@ public class GameBoard extends JFrame{
 				}
 			}
 		});
+	}
+	
+	public Player getPlayer() {
+		return player;
+	}
+	
+	public void gameOver() {
+		createPoops.setState(true);
+		player.setState(true);
+//		mainPanel.setVisible(false);
+	}
+	
+	public void restart() {
+		createPoops.setState(false);
+		createPoops = new CreatePoop(mGame, poops);
+		player.setState(false);
+//		mainPanel.setVisible(true);
 	}
 	
 	public static void main(String[] args) {

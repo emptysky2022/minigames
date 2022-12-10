@@ -12,6 +12,7 @@ public class Player extends JLabel implements Moveable{
 	private boolean left;
 	private boolean right;
 	
+	private boolean state;
 	
 	private static final int SPEED = 3;
 	
@@ -33,6 +34,7 @@ public class Player extends JLabel implements Moveable{
 		
 		left = false;
 		right = false;
+		state = false;
 		
 		setIcon(player);
 		setLocation(x, y);
@@ -43,7 +45,10 @@ public class Player extends JLabel implements Moveable{
 	public void left() {
 		left = true;
 		new Thread(() -> {
-			while(isLeft()) {
+			while(isLeft() && !state) {
+				if(x < -10) {
+					continue;
+				}
 				x -= SPEED;
 				setLocation(x,y);
 				try {
@@ -59,7 +64,10 @@ public class Player extends JLabel implements Moveable{
 	public void right() {
 		right = true;
 		new Thread(() -> {
-			while(isRight()) {
+			while(isRight() && !state) {
+				if(x > 950) {
+					continue;
+				}
 				x += SPEED;
 				setLocation(x,y);
 				try {
@@ -87,5 +95,11 @@ public class Player extends JLabel implements Moveable{
 		this.right = right;
 	}
 	
+	public boolean isState() {
+		return state;
+	}
 	
+	public void setState(boolean state) {
+		this.state = state;
+	}
 }
